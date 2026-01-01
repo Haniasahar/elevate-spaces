@@ -1,152 +1,167 @@
-// "use client";
+"use client";
 
-// export default function Navbar() {
-//   return (
-//     <nav
-//       id="navbar"
-//       className="fixed w-full z-50 transition-all duration-300 py-6 bg-white/90 backdrop-blur-md shadow-sm"
-//     >
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-//         <div
-//           className="flex items-center gap-2 cursor-pointer"
-//           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-//         >
-//           <div className="bg-indigo-600 p-2 rounded-lg">
-//             <i data-lucide="home" className="w-6 h-6 text-white"></i>
-//           </div>
-//           <span className="text-2xl font-bold tracking-tight text-slate-900">
-//             Elevate<span className="text-indigo-600">Spaces</span>
-//           </span>
-//         </div>
+import { useState } from "react";
+import {
+  Home,
+  Menu,
+  FolderOpen,
+  PenTool,
+  TrendingUp,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
 
-//         <div className="hidden lg:flex items-center gap-6">
-//           <button
-//             onClick={() => {
-//               document
-//                 .getElementById("try-it-free")
-//                 ?.scrollIntoView({ behavior: "smooth" });
-//             }}
-//             className="text-slate-600 hover:text-indigo-600 font-medium"
-//           >
-//             Try Demo
-//           </button>
-//           <button
-//             onClick={() => {
-//                 document
-//                   .getElementById("")
-//                   ?.scrollIntoView({ behavior: "smooth" });
-//               }}
-//             className="text-slate-600 hover:text-indigo-600 font-medium"
-//           >
-//             Services
-//           </button>
+export default function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-//           <button
-//             id="nav-projects"
-//             // onClick={() => window.openModal('modal-projects')}
-//             className="hidden text-slate-600 hover:text-indigo-600 font-medium flex items-center gap-1"
-//           >
-//             <i data-lucide="folder-open" className="w-4 h-4"></i> Projects
-//           </button>
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
+  };
 
-//           <div className="flex items-center gap-4 border-l border-slate-200 pl-6">
-//             <button
-//             //   onClick={() => window.openModal('modal-listing-writer')}
-//               className="text-indigo-600 font-bold flex items-center gap-1 text-sm hover:underline"
-//             >
-//               <i data-lucide="pen-tool" className="w-4 h-4"></i> Writer
-//             </button>
-//             <button
-//             //   onclick="window.openModal('modal-roi')"
-//               className="text-emerald-600 font-bold flex items-center gap-1 text-sm hover:underline"
-//             >
-//               <i data-lucide="trending-up" className="w-4 h-4"></i> ROI
-//               Calculator
-//             </button>
-//           </div>
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-//           <button
-//             // onclick="window.openModal('modal-team')"
-//             className="text-slate-600 hover:text-indigo-600 font-medium flex items-center gap-1"
-//           >
-//             <i data-lucide="users" className="w-4 h-4"></i> Team
-//           </button>
+  return (
+    <nav className="fixed w-full z-50 transition-all duration-300 py-6 bg-white/90 backdrop-blur-md shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        {/* Logo */}
+        <div
+          onClick={scrollToTop}
+          className="flex items-center gap-2 cursor-pointer select-none"
+        >
+          <div className="bg-indigo-600 p-2 rounded-lg">
+            <Home className="w-6 h-6 text-white" />
+          </div>
+          <span className="text-2xl font-bold tracking-tight text-slate-900">
+            Elevate<span className="text-indigo-600">Spaces</span>
+          </span>
+        </div>
 
-//           <button
-//             // onclick="window.scrollToSection('pricing')"
-//             className="text-slate-600 hover:text-indigo-600 font-medium"
-//           >
-//             Pricing
-//           </button>
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex items-center gap-6">
+          <button
+            onClick={() => scrollToSection("try-it-free")}
+            className="text-slate-600 hover:text-indigo-600 font-medium transition-colors"
+          >
+            Try Demo
+          </button>
 
-//           <button
-//             id="nav-login"
-//             // onclick="window.openModal('modal-login')"
-//             className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2 rounded-full font-semibold shadow-lg text-sm transition-colors"
-//           >
-//             Log In
-//           </button>
-//         </div>
-//         {/* Mobile Menu Toggle */}
-//         <div className="lg:hidden">
-//           <button
-//             onClick={() => document.getElementById('mobile-menu')?.classList.toggle('hidden')}
-//             className="text-slate-800 p-2"
-//           >
-//             <i data-lucide="menu" className="w-7 h-7"></i>
-//           </button>
-//         </div>
-//       </div>
-//       {/* Mobile Menu  */}
-//       {/* <div
-//         id="mobile-menu"
-//         className="hidden absolute top-full left-0 w-full bg-white shadow-lg py-6 px-4 flex flex-col gap-4 border-t"
-//       >
-//         <button
-//           onClick={() => window.scrollToSection('try-it-free')}
-//           className="text-left text-lg"
-//         >
-//           Try Demo
-//         </button>
-//         <button
-//           id="mobile-projects"
-//           onclick="window.openModal('modal-projects')"
-//           className="hidden text-left text-lg flex items-center gap-2"
-//         >
-//           <i data-lucide="folder-open" class="w-4 h-4"></i> Projects
-//         </button>
-//         <button
-//           onclick="window.openModal('modal-listing-writer')"
-//           className="text-left text-lg text-indigo-600 font-bold"
-//         >
-//           AI Writer
-//         </button>
-//         <button
-//           onclick="window.openModal('modal-roi')"
-//           className="text-left text-lg text-emerald-600 font-bold"
-//         >
-//           ROI Calculator
-//         </button>
-//         <button
-//           onclick="window.openModal('modal-team')"
-//           className="text-left text-lg"
-//         >
-//           Team
-//         </button>
-//         <button
-//           onclick="window.scrollToSection('pricing')"
-//           className="text-left text-lg"
-//         >
-//           Pricing
-//         </button>
-//         <button
-//           id="mobile-login"
-//           onclick="window.openModal('modal-login')"
-//           className="bg-slate-900 text-white py-3 rounded-lg font-semibold"
-//         >
-//           Log In
-//         </button>
-//       </div> */}
-//     </nav>
-//   );
-// }
+          <button className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">
+            Services
+          </button>
+
+          <button
+            id="nav-projects"
+            className=" text-slate-600 hover:text-indigo-600 font-medium flex items-center gap-1 transition-colors"
+          >
+            <FolderOpen className="w-4 h-4" /> Projects
+          </button>
+
+          <div className="flex items-center gap-4 border-l border-slate-200 pl-6">
+            <button
+              className="text-indigo-600 font-bold flex items-center gap-1 text-sm hover:underline transition"
+            >
+              <PenTool className="w-4 h-4" /> Writer
+            </button>
+
+            <button
+              className="text-emerald-600 font-bold flex items-center gap-1 text-sm hover:underline transition"
+            >
+              <TrendingUp className="w-4 h-4" /> ROI Calculator
+            </button>
+          </div>
+
+          <button
+            className="text-slate-600 hover:text-indigo-600 font-medium flex items-center gap-1 transition-colors"
+          >
+            <Users className="w-4 h-4" /> Team
+          </button>
+
+          <button
+            onClick={() => scrollToSection("pricing")}
+            className="text-slate-600 hover:text-indigo-600 font-medium transition-colors"
+          >
+            Pricing
+          </button>
+
+          <Link
+            href="/sign-in"
+            className="font-semibold text-indigo-600 px-5 py-2 rounded-full shadow-lg text-sm hover:text-white hover:bg-slate-500 transition-colors"
+          >
+            Log In
+          </Link>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <div className="lg:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-slate-800 p-2"
+            aria-label="Toggle menu"
+          >
+            <Menu className="w-7 h-7" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-5 flex flex-col gap-3 border-t border-slate-100">
+          <button
+            onClick={() => scrollToSection("try-it-free")}
+            className="text-left py-2 text-base font-medium text-slate-700 hover:text-indigo-600 transition-colors"
+          >
+            Try Demo
+          </button>
+
+          <button
+            id="mobile-projects"
+            className="text-left py-2 text-base font-medium flex items-center gap-2 text-slate-700 hover:text-indigo-600 transition-colors"
+          >
+            <FolderOpen className="w-5 h-5" /> Projects
+          </button>
+
+          <button
+            className="text-left py-2 text-base font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+          >
+            AI Writer
+          </button>
+
+          <button
+            className="text-left py-2 text-base font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+          >
+            ROI Calculator
+          </button>
+
+          <button
+            className="text-left py-2 text-base font-medium text-slate-700 hover:text-indigo-600 transition-colors"
+          >
+            Team
+          </button>
+
+          <button
+            onClick={() => scrollToSection("pricing")}
+            className="text-left py-2 text-base font-medium text-slate-700 hover:text-indigo-600 transition-colors"
+          >
+            Pricing
+          </button>
+
+          <div className="pt-2">
+            <Link
+              href="/sign-in"
+              className="block w-full text-center py-3 px-5 font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Log In
+            </Link>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+}
